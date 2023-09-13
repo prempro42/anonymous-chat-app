@@ -1,0 +1,11 @@
+.chatMessages::-webkit-scrollbar{
+  display: none;
+}
+
+body {
+  -ms-overflow-style: none;
+}
+
+html {
+  scrollbar-width: none;
+}

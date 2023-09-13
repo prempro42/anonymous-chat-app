@@ -1,0 +1,55 @@
+import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
+  Button,
+} from "@chakra-ui/react";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+
+function ExitRoomDialog({ isOpen, onClose }) {
+  const cancelRef = React.useRef();
+  const naviagate = useNavigate();
+
+  const handleExitRoom = () => {
+    naviagate("/");
+  };
+
+  return (
+    <>
+      <AlertDialog
+        p={4}
+        motionPreset="slideInBottom"
+        leastDestructiveRef={cancelRef}
+        onClose={onClose}
+        isOpen={isOpen}
+        isCentered
+      >
+        <AlertDialogOverlay />
+
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            Are you sure you want to exit the room?
+          </AlertDialogHeader>
+          {/* <AlertDialogCloseButton /> */}
+          <AlertDialogBody>
+            You won't be recieving new messages until you rejoin.
+          </AlertDialogBody>
+          <AlertDialogFooter>
+            <Button ref={cancelRef} onClick={onClose}>
+              Cancel
+            </Button>
+            <Button colorScheme="red" ml={3} onClick={handleExitRoom}>
+              Exit Room
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
+  );
+}
+
+export default ExitRoomDialog;
