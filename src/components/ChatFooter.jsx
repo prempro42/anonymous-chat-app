@@ -1,12 +1,4 @@
-import {
-  Box,
-  Container,
-  HStack,
-  IconButton,
-  Input,
-  Stack,
-  Tooltip,
-} from "@chakra-ui/react";
+import { Box, HStack, IconButton, Input } from "@chakra-ui/react";
 import React from "react";
 import { BsSendFill } from "react-icons/bs";
 
@@ -17,7 +9,7 @@ function ChatFooter({ inputMessage, setInputMessage, handleSendMessage }) {
         <Input
           variant="filled"
           placeholder="enter message..."
-          onKeyPress={(e) => {
+          onKeyDown={(e) => {
             if (e.key === "Enter") {
               handleSendMessage();
             }
@@ -25,14 +17,12 @@ function ChatFooter({ inputMessage, setInputMessage, handleSendMessage }) {
           value={inputMessage}
           onChange={(e) => setInputMessage(e.target.value)}
         />
-        <Tooltip label="send message">
-          <IconButton
-            isDisabled={inputMessage.trim().length <= 0}
-            onClick={handleSendMessage}
-            aria-label="Search database"
-            icon={<BsSendFill size={24} />}
-          />
-        </Tooltip>
+        <IconButton
+          isDisabled={inputMessage.trim().length <= 0}
+          onClick={handleSendMessage}
+          aria-label="Search database"
+          icon={<BsSendFill size={24} />}
+        />
       </HStack>
     </Box>
   );
