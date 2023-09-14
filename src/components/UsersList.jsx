@@ -13,11 +13,11 @@ export function UsersList({ usersListModal }) {
   return (
     <Drawer
       isOpen={usersListModal.isOpen}
-      placement="bottom"
+      placement="right"
       onClose={usersListModal.onClose}
     >
-      <DrawerOverlay />
-      <DrawerContent maxH="60vh" minH="40vh">
+      <DrawerOverlay bg="blackAlpha.300" backdropFilter="blur(8px)" />
+      <DrawerContent maxW={{ base: "68vw", md: "40vw", lg: "30vw" }}>
         <DrawerCloseButton fontSize={"md"} />
         <DrawerHeader>Users in room</DrawerHeader>
         <DrawerBody>
@@ -29,6 +29,7 @@ export function UsersList({ usersListModal }) {
             <ListItem>Sharanya</ListItem>
             <ListItem>Bharath</ListItem>
             <ListItem>Prem</ListItem>
+            <ListItem>Naruto Uzumaki</ListItem>
           </UnorderedList>
         </DrawerBody>
       </DrawerContent>

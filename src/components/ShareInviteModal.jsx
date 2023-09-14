@@ -17,16 +17,14 @@ export function ShareInviteModal({ shareInviteModal, state }) {
       isCentered
       size={{ base: "xs", md: "md" }}
     >
-      <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(8px) " />
+      <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(8px)" />
       <ModalContent>
         <ModalHeader>Share link to a friend</ModalHeader>
         <ModalBody>
           <CopyRoomLink state={state} />
         </ModalBody>
         <ModalFooter alignSelf="center">
-          <Button colorScheme="green" onClick={shareInviteModal.onClose}>
-            Close
-          </Button>
+          <Button onClick={shareInviteModal.onClose}>Close</Button>
         </ModalFooter>
       </ModalContent>
     </Modal>

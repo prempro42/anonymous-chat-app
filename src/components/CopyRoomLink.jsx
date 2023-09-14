@@ -9,7 +9,9 @@ export function CopyRoomLink({ state }) {
     <>
       <Flex mb={2}>
         <Input isDisabled variant="flushed" value={value} mr={2} />
-        <Button onClick={onCopy}>{hasCopied ? "Copied!" : "Copy"}</Button>
+        <Button colorScheme="green" onClick={onCopy}>
+          {hasCopied ? "Copied!" : "Copy"}
+        </Button>
       </Flex>
     </>
   );
