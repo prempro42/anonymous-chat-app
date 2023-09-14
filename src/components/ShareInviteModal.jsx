@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { CopyRoomLink } from "./CopyRoomLink";
 
-export function ShareInviteModal({ shareInviteModal }) {
+export function ShareInviteModal({ shareInviteModal, state }) {
   return (
     <Modal
       isOpen={shareInviteModal.isOpen}
@@ -21,7 +21,7 @@ export function ShareInviteModal({ shareInviteModal }) {
       <ModalContent>
         <ModalHeader>Share link to a friend</ModalHeader>
         <ModalBody>
-          <CopyRoomLink />
+          <CopyRoomLink state={state} />
         </ModalBody>
         <ModalFooter alignSelf="center">
           <Button colorScheme="green" onClick={shareInviteModal.onClose}>

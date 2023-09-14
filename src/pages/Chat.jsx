@@ -58,7 +58,7 @@ function Chat() {
         handleSendMessage={handleSendMessage}
       />
       <UsersList usersListModal={usersListModal} />
-      <ShareInviteModal shareInviteModal={shareInviteModal} />
+      <ShareInviteModal shareInviteModal={shareInviteModal} state={state} />
     </Container>
   );
 }
