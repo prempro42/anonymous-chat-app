@@ -12,13 +12,15 @@ import {
   InputGroup,
   Icon,
 } from "@chakra-ui/react";
+import { useState } from "react";
 import { FaUserSecret } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
   const naviagate = useNavigate();
+  const [user, setUser] = useState({ username: "", userroom: "" });
   const handleLogin = () => {
-    naviagate("/chat");
+    naviagate("/chat", { state: { user: user.username, room: user.userroom } });
   };
 
   return (
@@ -39,16 +41,41 @@ const SignIn = () => {
             rounded="lg"
             p={{ base: 5, sm: 10 }}
             spacing={8}
+            onSubmit={handleLogin}
           >
             <VStack spacing={4} w="100%">
               <FormControl id="email">
                 <FormLabel>Username</FormLabel>
-                <Input variant="filled" rounded="md" type="text" required />
+                <Input
+                  variant="filled"
+                  rounded="md"
+                  type="text"
+                  isRequired
+                  value={user.username}
+                  onChange={(e) =>
+                    setUser((prevState) => ({
+                      ...prevState,
+                      username: e.target.value,
+                    }))
+                  }
+                />
               </FormControl>
               <FormControl id="password">
                 <FormLabel>Room</FormLabel>
                 <InputGroup size="md">
-                  <Input variant="filled" rounded="md" type="text" />
+                  <Input
+                    variant="filled"
+                    rounded="md"
+                    type="text"
+                    isRequired
+                    value={user.userroom}
+                    onChange={(e) =>
+                      setUser((prevState) => ({
+                        ...prevState,
+                        userroom: e.target.value,
+                      }))
+                    }
+                  />
                 </InputGroup>
               </FormControl>
             </VStack>
@@ -62,7 +89,6 @@ const SignIn = () => {
                 }}
                 rounded="md"
                 w="100%"
-                onClick={handleLogin}
               >
                 Enter Room
               </Button>

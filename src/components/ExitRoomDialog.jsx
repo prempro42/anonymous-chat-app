@@ -28,7 +28,7 @@ function ExitRoomDialog({ isOpen, onClose }) {
       isCentered
       size={{ base: "xs", md: "md" }}
     >
-      <AlertDialogOverlay />
+      <AlertDialogOverlay backdropFilter="blur(8px)" />
       <AlertDialogContent>
         <AlertDialogHeader>
           Are you sure you want to exit the room?
