@@ -16,7 +16,7 @@ function Page404() {
     >
       <VStack w={{ md: "60vw" }}>
         <Player
-          src="/src/assets/404.json"
+          src="/404.json"
           loop={false}
           keepLastFrame={true}
           autoplay
