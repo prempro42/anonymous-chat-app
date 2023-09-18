@@ -11,16 +11,36 @@ import {
   Center,
   InputGroup,
   Icon,
+  Highlight,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaUserSecret } from "react-icons/fa6";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const SignIn = () => {
-  const naviagate = useNavigate();
+  const { invitedRoomName } = useParams();
+  const roomInvitedText = `You've been invited to join room: ${invitedRoomName}`;
+  const navigate = useNavigate();
   const [user, setUser] = useState({ username: "", userroom: "" });
+
+  useEffect(() => {
+    if (invitedRoomName) {
+      setUser((prevState) => ({
+        ...prevState,
+        userroom: invitedRoomName,
+      }));
+    }
+  }, []);
+
   const handleLogin = () => {
-    naviagate("/chat", { state: { user: user.username, room: user.userroom } });
+    const userState = {
+      user: user.username || "John",
+      room: user.userroom || "test",
+    };
+    localStorage.setItem("user", JSON.stringify(userState));
+    navigate("/chat", {
+      state: userState,
+    });
   };
 
   return (
@@ -33,6 +53,21 @@ const SignIn = () => {
             </Heading>
             <Heading fontSize="2xl">Anonymous Chatting</Heading>
           </Stack>
+          {invitedRoomName && (
+            <Heading size="sm" lineHeight="tall" textAlign="center">
+              <Highlight
+                query={invitedRoomName}
+                styles={{
+                  px: "2",
+                  py: "1",
+                  rounded: "full",
+                  bg: "purple.100",
+                }}
+              >
+                {roomInvitedText}
+              </Highlight>
+            </Heading>
+          )}
           <VStack
             as="form"
             boxSize={{ base: "xs", sm: "sm", md: "md" }}

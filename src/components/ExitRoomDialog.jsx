@@ -15,6 +15,7 @@ function ExitRoomDialog({ isOpen, onClose }) {
   const naviagate = useNavigate();
 
   const handleExitRoom = () => {
+    localStorage.removeItem("user");
     naviagate("/");
   };
 

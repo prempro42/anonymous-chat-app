@@ -22,14 +22,11 @@ export function UsersList({ usersListModal }) {
         <DrawerHeader>Users in room</DrawerHeader>
         <DrawerBody>
           <UnorderedList>
-            <ListItem>VG Rajan</ListItem>
-            <ListItem>Suruthika</ListItem>
-            <ListItem>Mohanraj</ListItem>
-            <ListItem>Sathya</ListItem>
-            <ListItem>Sharanya</ListItem>
-            <ListItem>Bharath</ListItem>
+            <ListItem>Ed Winters</ListItem>
+            <ListItem>Joey Carbstrong</ListItem>
+            <ListItem>Seb Alex </ListItem>
+            <ListItem>Soytheist </ListItem>
             <ListItem>Prem</ListItem>
-            <ListItem>Naruto Uzumaki</ListItem>
           </UnorderedList>
         </DrawerBody>
       </DrawerContent>

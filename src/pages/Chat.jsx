@@ -10,7 +10,10 @@ import { useLocation } from "react-router-dom";
 function Chat() {
   const usersListModal = useDisclosure();
   const shareInviteModal = useDisclosure();
-  const { state } = useLocation();
+  let { state } = useLocation();
+  if (!state) {
+    state = JSON.parse(localStorage.getItem("user"));
+  }
   console.log({ state });
   const [messages, setMessages] = useState([
     { from: "computer", text: "Hi, I'm Ditto Bot" },
