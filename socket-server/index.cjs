@@ -1,4 +1,5 @@
 const express = require("express");
+require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 4000;
 
@@ -37,7 +38,7 @@ socketIO.on("connection", (socket) => {
     socket.emit("messageChannel", formatNotice("Welcome to Anon Chat! 💬"));
 
     // Broadcast when a user connects
-    socket.broadcast.to(user.room).emit("messageChannel", formatNotice(`${user.username} has joined the chat`));
+    socket.broadcast.to(user.room).emit("messageChannel", formatNotice(`${user.username} has joined the chat 🤗`));
 
     // Send users and room info
     socketIO.to(user.room).emit("users", getRoomUsers(user.room));
@@ -90,7 +91,7 @@ function disconnectUser(id) {
   userLeave(id);
   if (user) {
     console.log(`🔥 user : ${user.username} disconnected`);
-    socketIO.to(user.room).emit("messageChannel", formatNotice(`${user.username} has left the chat`));
+    socketIO.to(user.room).emit("messageChannel", formatNotice(`${user.username} has left the chat 👣`));
 
     // Send users and room info
     socketIO.to(user.room).emit("users", getRoomUsers(user.room));

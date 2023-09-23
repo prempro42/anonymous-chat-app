@@ -1,12 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import {
-  AbsoluteCenter,
-  Badge,
-  Box,
-  Divider,
-  Flex,
-  Text,
-} from "@chakra-ui/react";
+import { AbsoluteCenter, Badge, Box, Divider, Flex, Text } from "@chakra-ui/react";
 
 const ChatMessages = ({ messages, username }) => {
   const AlwaysScrollToBottom = () => {
@@ -16,13 +9,7 @@ const ChatMessages = ({ messages, username }) => {
   };
 
   return (
-    <Flex
-      w="100%"
-      h="80%"
-      overflowY="scroll"
-      flexDirection="column"
-      className="chatMessages"
-    >
+    <Flex w="100%" h="80%" overflowY="scroll" flexDirection="column" className="chatMessages">
       {messages.map((item, index) => {
         if (item.message.type === "notice") {
           return (
@@ -37,7 +24,10 @@ const ChatMessages = ({ messages, username }) => {
           );
         } else if (item.user.username === username) {
           return (
-            <Flex key={index} w="100%" justify="flex-end">
+            <Flex key={index} w="100%" flexDirection="column" alignItems="flex-end">
+              <Text position="relative" fontSize="xs">
+                you ~
+              </Text>
               <Flex
                 borderRadius="md"
                 // bg="black"
@@ -54,16 +44,11 @@ const ChatMessages = ({ messages, username }) => {
           );
         } else {
           return (
-            <Flex key={index} w="100%">
-              <Flex
-                borderRadius="md"
-                bg="gray.100"
-                color="black"
-                minW="100px"
-                maxW="350px"
-                my="1"
-                p="3"
-              >
+            <Flex key={index} w="100%" flexDirection="column" alignItems="flex-start">
+              <Text position="relative" fontSize="xs" style={{ textTransform: "lowercase" }}>
+                ~ {item.user.username}
+              </Text>
+              <Flex borderRadius="md" bg="gray.100" color="black" minW="100px" maxW="350px" my="1" p="3">
                 <Text>{item.message.content}</Text>
               </Flex>
             </Flex>
