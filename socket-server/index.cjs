@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 
 //New imports
 const http = require("http").Server(app);
@@ -16,12 +16,14 @@ const socketIO = require("socket.io")(http, {
 });
 
 const { formatMessage, formatNotice } = require("./utils/messages.cjs");
-const {
-  userJoin,
-  getCurrentUser,
-  userLeave,
-  getRoomUsers,
-} = require("./utils/users.cjs");
+const { userJoin, getCurrentUser, userLeave, getRoomUsers } = require("./utils/users.cjs");
+
+//test-socket server
+app.get("/api", (req, res) => {
+  res.json({
+    message: "Hello from Anonymous Chat!",
+  });
+});
 
 // Run when client connects
 socketIO.on("connection", (socket) => {
@@ -35,12 +37,7 @@ socketIO.on("connection", (socket) => {
     socket.emit("messageChannel", formatNotice("Welcome to Anon Chat! 💬"));
 
     // Broadcast when a user connects
-    socket.broadcast
-      .to(user.room)
-      .emit(
-        "messageChannel",
-        formatNotice(`${user.username} has joined the chat`)
-      );
+    socket.broadcast.to(user.room).emit("messageChannel", formatNotice(`${user.username} has joined the chat`));
 
     // Send users and room info
     socketIO.to(user.room).emit("users", getRoomUsers(user.room));
@@ -49,8 +46,8 @@ socketIO.on("connection", (socket) => {
   // Listen for message
   socket.on("message", async (message) => {
     const user = getCurrentUser(socket.id);
-    console.log("msg", message);
-    console.log("user", user);
+    // console.log("msg", message);
+    // console.log("user", user);s
     if (user) {
       let messages = await formatMessage(user, message);
       messages.forEach((formattedMessage) => {
@@ -93,12 +90,7 @@ function disconnectUser(id) {
   userLeave(id);
   if (user) {
     console.log(`🔥 user : ${user.username} disconnected`);
-    socketIO
-      .to(user.room)
-      .emit(
-        "messageChannel",
-        formatNotice(`${user.username} has left the chat`)
-      );
+    socketIO.to(user.room).emit("messageChannel", formatNotice(`${user.username} has left the chat`));
 
     // Send users and room info
     socketIO.to(user.room).emit("users", getRoomUsers(user.room));
