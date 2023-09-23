@@ -20,7 +20,7 @@ function ChatFooter({ inputMessage, setInputMessage, handleSendMessage }) {
         <IconButton
           isDisabled={inputMessage.trim().length <= 0}
           onClick={handleSendMessage}
-          aria-label="Search database"
+          aria-label="Send Icon"
           icon={<BsSendFill size={24} />}
         />
       </HStack>

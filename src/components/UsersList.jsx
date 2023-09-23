@@ -8,8 +8,18 @@ import {
   ListItem,
   UnorderedList,
 } from "@chakra-ui/react";
+import { socket } from "../socket-client";
+import { useEffect, useState } from "react";
 
 export function UsersList({ usersListModal }) {
+  const [usersList, setUsersList] = useState([]);
+  useEffect(() => {
+    socket.on("users", (usersListData) => {
+      // console.log("users ", usersListData);
+      setUsersList(usersListData);
+    });
+  }, [socket]);
+
   return (
     <Drawer
       isOpen={usersListModal.isOpen}
@@ -22,11 +32,12 @@ export function UsersList({ usersListModal }) {
         <DrawerHeader>Users in room</DrawerHeader>
         <DrawerBody>
           <UnorderedList>
-            <ListItem>Ed Winters</ListItem>
-            <ListItem>Joey Carbstrong</ListItem>
-            <ListItem>Seb Alex </ListItem>
-            <ListItem>Soytheist </ListItem>
-            <ListItem>Prem</ListItem>
+            {usersList &&
+              usersList.map((user, index) => (
+                <ListItem key={index} style={{ textTransform: "capitalize" }}>
+                  {user.username}
+                </ListItem>
+              ))}
           </UnorderedList>
         </DrawerBody>
       </DrawerContent>

@@ -7,7 +7,7 @@ import ExitRoomDialog from "./ExitRoomDialog";
 
 function ChatHeader({ usersListModal, shareInviteModal, state }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const username = `username : ${state.user}`;
+  const username = `username : ${state.username}`;
   const userroom = `room : ${state.room}`;
   return (
     <HStack py={4} justifyContent="space-between">

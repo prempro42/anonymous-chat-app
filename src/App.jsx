@@ -2,8 +2,8 @@ import { Route, Routes } from "react-router-dom";
 import Chat from "./pages/Chat";
 import Page404 from "./pages/Page404";
 import SignIn from "./pages/SignIn";
-import "./App.css";
 import RequireAuth from "./components/RequireAuth";
+import "./App.css";
 
 function App() {
   return (

@@ -1,7 +1,14 @@
 import React, { useEffect, useRef } from "react";
-import { Flex, Text } from "@chakra-ui/react";
+import {
+  AbsoluteCenter,
+  Badge,
+  Box,
+  Divider,
+  Flex,
+  Text,
+} from "@chakra-ui/react";
 
-const ChatMessages = ({ messages }) => {
+const ChatMessages = ({ messages, username }) => {
   const AlwaysScrollToBottom = () => {
     const elementRef = useRef();
     useEffect(() => elementRef.current.scrollIntoView(), []);
@@ -17,7 +24,18 @@ const ChatMessages = ({ messages }) => {
       className="chatMessages"
     >
       {messages.map((item, index) => {
-        if (item.from === "me") {
+        if (item.message.type === "notice") {
+          return (
+            <Box key={index} position="relative" padding="8">
+              <Divider />
+              <AbsoluteCenter px="4">
+                <Badge variant="subtle" colorScheme="green">
+                  {item.message.content}
+                </Badge>
+              </AbsoluteCenter>
+            </Box>
+          );
+        } else if (item.user.username === username) {
           return (
             <Flex key={index} w="100%" justify="flex-end">
               <Flex
@@ -30,7 +48,7 @@ const ChatMessages = ({ messages }) => {
                 p="3"
                 bgGradient="linear(to-r, teal.500, green.500)"
               >
-                <Text>{item.text}</Text>
+                <Text>{item.message.content}</Text>
               </Flex>
             </Flex>
           );
@@ -46,7 +64,7 @@ const ChatMessages = ({ messages }) => {
                 my="1"
                 p="3"
               >
-                <Text>{item.text}</Text>
+                <Text>{item.message.content}</Text>
               </Flex>
             </Flex>
           );

@@ -2,7 +2,7 @@ import { Button, Flex, Input, useClipboard } from "@chakra-ui/react";
 
 export function CopyRoomLink({ state }) {
   const { onCopy, value, hasCopied } = useClipboard(
-    `https://anonymous-chat-app-prem.vercel.app/join/${state.room}`
+    `${window.location.origin}/join/${state.room}`
   );
 
   return (

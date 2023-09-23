@@ -9,14 +9,16 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { socket } from "../socket-client";
 
 function ExitRoomDialog({ isOpen, onClose }) {
   const cancelRef = React.useRef();
-  const naviagate = useNavigate();
+  const navigate = useNavigate();
 
   const handleExitRoom = () => {
     localStorage.removeItem("user");
-    naviagate("/");
+    socket.disconnect();
+    navigate("/");
   };
 
   return (

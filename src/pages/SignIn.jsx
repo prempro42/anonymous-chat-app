@@ -12,10 +12,13 @@ import {
   InputGroup,
   Icon,
   Highlight,
+  Image,
+  Link,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { FaUserSecret } from "react-icons/fa6";
 import { useNavigate, useParams } from "react-router-dom";
+import { socket } from "../socket-client";
 
 const SignIn = () => {
   const { invitedRoomName } = useParams();
@@ -34,10 +37,12 @@ const SignIn = () => {
 
   const handleLogin = () => {
     const userState = {
-      user: user.username || "John",
-      room: user.userroom || "test",
+      username: user.username,
+      room: user.userroom,
     };
     localStorage.setItem("user", JSON.stringify(userState));
+    socket.connect();
+    socket.emit("join-room", userState);
     navigate("/chat", {
       state: userState,
     });
@@ -131,6 +136,15 @@ const SignIn = () => {
           </VStack>
         </Stack>
       </Center>
+      <Link href="https://github.com/prempro42/anonymous-chat-app" isExternal>
+        <Image
+          pos="absolute"
+          top="5"
+          right="5"
+          width="30px"
+          src="/icons8-github.svg"
+        />
+      </Link>
     </Container>
   );
 };

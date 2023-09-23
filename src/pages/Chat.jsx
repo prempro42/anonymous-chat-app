@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container, useDisclosure } from "@chakra-ui/react";
 import ChatHeader from "../components/ChatHeader";
 import ChatFooter from "../components/ChatFooter";
@@ -6,6 +6,7 @@ import ChatMessages from "../components/ChatMessages";
 import { UsersList } from "../components/UsersList";
 import { ShareInviteModal } from "../components/ShareInviteModal";
 import { useLocation } from "react-router-dom";
+import { socket } from "../socket-client";
 
 function Chat() {
   const usersListModal = useDisclosure();
@@ -14,17 +15,8 @@ function Chat() {
   if (!state) {
     state = JSON.parse(localStorage.getItem("user"));
   }
-  console.log({ state });
-  const [messages, setMessages] = useState([
-    { from: "computer", text: "Hi, I'm Ditto Bot" },
-    { from: "me", text: "Hey there!" },
-    { from: "me", text: `${state.user} here...` },
-    {
-      from: "computer",
-      text: "Nice to meet you. You can send me message and i'll reply you with same message.",
-    },
-  ]);
 
+  const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
 
   const handleSendMessage = () => {
@@ -32,14 +24,15 @@ function Chat() {
       return;
     }
     const data = inputMessage;
-
-    setMessages((old) => [...old, { from: "me", text: data }]);
+    socket.emit("message", data);
     setInputMessage("");
-
-    setTimeout(() => {
-      setMessages((old) => [...old, { from: "computer", text: data }]);
-    }, 1000);
   };
+
+  useEffect(() => {
+    socket.on("messageChannel", (data) => {
+      setMessages((old) => [...old, data]);
+    });
+  }, [socket]);
 
   return (
     <Container
@@ -54,7 +47,7 @@ function Chat() {
         usersListModal={usersListModal}
         shareInviteModal={shareInviteModal}
       />
-      <ChatMessages messages={messages} />
+      <ChatMessages messages={messages} username={state.username} />
       <ChatFooter
         inputMessage={inputMessage}
         setInputMessage={setInputMessage}
