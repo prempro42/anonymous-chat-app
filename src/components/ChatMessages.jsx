@@ -25,9 +25,9 @@ const ChatMessages = ({ messages, username }) => {
         } else if (item.user.username === username) {
           return (
             <Flex key={index} w="100%" flexDirection="column" alignItems="flex-end">
-              <Text position="relative" fontSize="xs">
+              {/* <Text position="relative" fontSize="xs">
                 you ~
-              </Text>
+              </Text> */}
               <Flex
                 borderRadius="md"
                 // bg="black"
@@ -44,11 +44,11 @@ const ChatMessages = ({ messages, username }) => {
           );
         } else {
           return (
-            <Flex key={index} w="100%" flexDirection="column" alignItems="flex-start">
+            <Flex key={index} w="100%" flexDirection="column" alignItems="flex-start" pt="2">
               <Text position="relative" fontSize="xs" style={{ textTransform: "lowercase" }}>
                 ~ {item.user.username}
               </Text>
-              <Flex borderRadius="md" bg="gray.100" color="black" minW="100px" maxW="350px" my="1" p="3">
+              <Flex borderRadius="md" bg="gray.100" color="black" minW="100px" maxW="350px" mb="1" p="3">
                 <Text>{item.message.content}</Text>
               </Flex>
             </Flex>

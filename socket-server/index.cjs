@@ -57,23 +57,23 @@ socketIO.on("connection", (socket) => {
     }
   });
 
-  // Listen for typing event
-  socket.on("typing", (isTyping) => {
-    const user = getCurrentUser(socket.id);
+  // Listen for typing event - to be implemented
+  // socket.on("typing", (isTyping) => {
+  //   const user = getCurrentUser(socket.id);
 
-    if (user) {
-      const users = getRoomUsers(user.room);
+  //   if (user) {
+  //     const users = getRoomUsers(user.room);
 
-      users.map((u) => {
-        if (u.id === user.id) {
-          u.typing = isTyping;
-        }
-      });
+  //     users.map((u) => {
+  //       if (u.id === user.id) {
+  //         u.typing = isTyping;
+  //       }
+  //     });
 
-      // Send users and room info
-      socket.broadcast.to(user.room).emit("users", users);
-    }
-  });
+  //     // Send users and room info
+  //     socket.broadcast.to(user.room).emit("users", users);
+  //   }
+  // });
 
   // Listen for forceDisconnect
   socket.on("leave", () => {
