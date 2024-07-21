@@ -34,7 +34,7 @@ export function UsersList({ usersListModal }) {
           <UnorderedList>
             {usersList &&
               usersList.map((user, index) => (
-                <ListItem key={index} style={{ textTransform: "capitalize" }}>
+                <ListItem key={index} >
                   {user.username}
                 </ListItem>
               ))}
